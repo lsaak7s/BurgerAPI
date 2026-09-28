@@ -1,12 +1,16 @@
 'use strict';
-
-/** @type {import('sequelize-cli').Migration} */
+//up: aplica a mudança — cria a tabela.
+//down: desfaz a mudança — remove a tabela.
+const { BOOLEAN } = require('sequelize');
+// Aqui criamos a tabela de usuários no banco de dados.
+/**@type {import('sequelize-cli').Migration} */
 module.exports = {
 	async up(queryInterface, Sequelize) {
 		await queryInterface.createTable('users', {
 			id: {
 				primaryKey: true,
 				allowNull: false,
+				//type de id que serar gerado
 				type: Sequelize.UUID,
 				defaultValue: Sequelize.UUIDV4,
 			},
@@ -24,7 +28,7 @@ module.exports = {
 				allowNull: true,
 			},
 			admin: {
-				type: Boolean,
+				type: BOOLEAN,
 				defaultValue: false,
 			},
 			created: {
@@ -37,7 +41,7 @@ module.exports = {
 			},
 		});
 	},
-
+	// Remove a tabela users ao desfazer esta migration.
 	async down(queryInterface, Sequelize) {
 		await queryInterface.dropTable('users');
 	},

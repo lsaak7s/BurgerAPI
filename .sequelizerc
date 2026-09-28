@@ -5,3 +5,4 @@ module.exports = {
 	'migrations-path': resolve(__dirname, 'src', 'database', 'migrations'),
 	'models-path': resolve(__dirname, 'src', 'app', 'models'),
 };
+
