@@ -6,6 +6,34 @@ module.exports = {
 		Example: await queryInterface.createTable('users', {
 			id: {
 				primaryKey: true,
+				allowNull: false,
+				type: Sequelize.UUID,
+				defaultValue: Sequelize.UUIDV4,
+			},
+			name: {
+				type: Sequelize.STRING,
+				allowNull: false,
+			},
+			email: {
+				type: Sequelize.STRING,
+				allowNull: false,
+				unique: true,
+			},
+			password_hash: {
+				type: Sequelize.STRING,
+				allowNull: true,
+			},
+			admin: {
+				type: Boolean,
+				defaultValue: false,
+			},
+			created: {
+				type: Sequelize.DATE,
+				allowNull: false,
+			},
+			update: {
+				type: Sequelize.DATE,
+				allowNull: false,
 			},
 		});
 	},
