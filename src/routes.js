@@ -5,8 +5,6 @@ const router = new Router();
 
 router.get('/', async (req, res) => {
 	const user = {
-		id: v4(),
-
 		name: 'isaac Alves',
 		email: 'isaac@exemplo.com',
 		password_hash: 'isaac8Alves',

@@ -4,6 +4,11 @@ class User extends Model {
 	static init(sequelize) {
 		Model.init(
 			{
+				id: {
+					type: Sequelize.UUID,
+					defaultValue: Sequelize.UUIDV4,
+					primaryKey: true,
+				},
 				name: Sequelize.STRING,
 				email: Sequelize.STRING,
 				password_hash: Sequelize.STRING,
@@ -11,7 +16,9 @@ class User extends Model {
 			},
 			{
 				sequelize,
-				tableName: 'user',
+				tableName: 'users',
+				timestamps: true,
+				underscored: true,
 			},
 		);
 	}
