@@ -1,12 +1,11 @@
 import { Router } from 'express';
-import User from './app/models/User.js';
-import { v4 } from 'uuid';
+import User from './app/models/user.js';
 const router = new Router();
 
 router.get('/', async (req, res) => {
 	const user = {
-		name: 'isaac Alves',
-		email: 'isaac@exemplo.com',
+		name: 'isaacAlovues',
+		email: 'isaac@2e1xemplo.com',
 		password_hash: 'isaac8Alves',
 		admin: false,
 	};
