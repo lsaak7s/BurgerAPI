@@ -1,3 +1,4 @@
+//SEMPRE TENHA CERTEZA
 module.exports = {
 	dialect: 'postgres',
 	host: 'localhost',

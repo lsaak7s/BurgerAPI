@@ -1,4 +1,5 @@
 'use strict';
+//SEMPRE TENHA CERTEZA
 //up: aplica a mudança — cria a tabela.
 //down: desfaz a mudança — remove a tabela.
 const { BOOLEAN } = require('sequelize');
@@ -42,7 +43,7 @@ module.exports = {
 		});
 	},
 	// Remove a tabela users ao desfazer esta migration.
-	async down(queryInterface, Sequelize) {
+	async down(queryInterface) {
 		await queryInterface.dropTable('users');
 	},
 };
