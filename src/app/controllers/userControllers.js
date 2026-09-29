@@ -8,7 +8,8 @@ update = atualiza um dado
 delete = remove um dado
 */
 //Sempre temos que deixar tudo bem documetado
-import User from '../models/user.js';
+//SEMPRE TENHA CERTEZA
+import User from '../models/User.js';
 
 class Usercontrollers {
 	async store(req, res) {
@@ -19,13 +20,21 @@ class Usercontrollers {
 			password_hash,
 			admin,
 		});
+
+		return res.status(201).json({
+			name: user.name,
+			email: user.email,
+			password_hash: user.password_hash,
+			admin: user.admin,
+		});
+		/*
 		try {
 			await User.create(user);
 			res.status(201).json(user);
 		} catch (error) {
 			console.error(error);
 			res.status(500).json({ error: error.message });
-		}
+		}*/
 	}
 }
 export default new Usercontrollers();

@@ -1,4 +1,5 @@
 'use strict';
+//SEMPRE TENHA CERTEZA
 //up: aplica a mudança — cria a tabela.
 //down: desfaz a mudança — remove a tabela.
 const { BOOLEAN } = require('sequelize');

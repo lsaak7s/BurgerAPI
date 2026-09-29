@@ -1,8 +1,9 @@
+//SEMPRE TENHA CERTEZA
 import { Router } from 'express';
-import Usercontrollers from './app/controllers/userControllers.js';
+import UserControllers from './app/controllers/UserControllers.js';
 
 const router = new Router();
 
-router.get('/', Usercontrollers.store);
+router.post('/users', UserControllers.store);
 
 export default router;
