@@ -13,28 +13,30 @@ import User from '../models/User.js';
 
 class Usercontrollers {
 	async store(req, res) {
-		const { name, email, password_hash, admin } = req.body;
-		const user = await User.create({
-			name,
-			email,
-			password_hash,
-			admin,
-		});
-
-		return res.status(201).json({
-			name: user.name,
-			email: user.email,
-			password_hash: user.password_hash,
-			admin: user.admin,
-		});
-		/*
 		try {
-			await User.create(user);
-			res.status(201).json(user);
+			const { name, email, password_hash, admin } = req.body;
+
+			const user = await User.create({
+				name,
+				email,
+				password_hash,
+				admin,
+			});
+
+			return res.status(201).json({
+				name: user.name,
+				email: user.email,
+				password_hash: user.password_hash,
+				admin: user.admin,
+			});
 		} catch (error) {
 			console.error(error);
-			res.status(500).json({ error: error.message });
-		}*/
+
+			return res.status(500).json({
+				error: 'Erro ao criar usuário.',
+			});
+		}
 	}
 }
+
 export default new Usercontrollers();
