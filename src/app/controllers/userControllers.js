@@ -16,6 +16,18 @@ class Usercontrollers {
 		try {
 			const { name, email, password_hash, admin } = req.body;
 
+			const existUser = await User.findOne({
+				where: {
+					email,
+				},
+			});
+			if (existUser) {
+				return res.status(400).json({
+					message:
+						'Caro Usuario este email ja se encontra em uso, se possivel utilize outro email',
+				});
+			}
+
 			const user = await User.create({
 				name,
 				email,
