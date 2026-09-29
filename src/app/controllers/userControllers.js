@@ -14,7 +14,7 @@ import User from '../models/User.js';
 class Usercontrollers {
 	async store(req, res) {
 		try {
-			const { name, email, password_hash, admin } = req.body;
+			const { name, email, password_hash,admin } = req.body;
 
 			const existUser = await User.findOne({
 				where: {
