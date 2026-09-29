@@ -43,7 +43,7 @@ module.exports = {
 		});
 	},
 	// Remove a tabela users ao desfazer esta migration.
-	async down(queryInterface, Sequelize) {
+	async down(queryInterface) {
 		await queryInterface.dropTable('users');
 	},
 };
