@@ -9,12 +9,22 @@ delete = remove um dado
 */
 //Sempre temos que deixar tudo bem documetado
 //SEMPRE TENHA CERTEZA
+import * as Yup from 'yup';
 import User from '../models/User.js';
 
 class Usercontrollers {
 	async store(req, res) {
+		const schema = Yup.object({
+			name: Yup.string().required(),
+			email: Yup.string().required().email(),
+			password_hash: Yup.string().required().min(),
+			admin: Yup.boolean(),
+		});
+
+		schema.validateSync(req.body,{})
+
 		try {
-			const { name, email, password_hash,admin } = req.body;
+			const { name, email, password_hash, admin } = req.body;
 
 			const existUser = await User.findOne({
 				where: {
