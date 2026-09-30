@@ -9,19 +9,25 @@ delete = remove um dado
 */
 //Sempre temos que deixar tudo bem documetado
 //SEMPRE TENHA CERTEZA
+
 import * as Yup from 'yup';
 import User from '../models/User.js';
 
 class Usercontrollers {
 	async store(req, res) {
+		//Desse jeito que validamos e cuidamos para que os nossos campos recebam exatamente oque queremos
 		const schema = Yup.object({
 			name: Yup.string().required(),
 			email: Yup.string().required().email(),
-			password_hash: Yup.string().required().min(),
+			password_hash: Yup.string().required().min(6),
 			admin: Yup.boolean(),
 		});
 
-		schema.validateSync(req.body,{})
+		try {
+			schema.validateSync(req.body, { abortEarly: false, strict: true });
+		} catch (error) {
+			return res.status(400);
+		}
 
 		try {
 			const { name, email, password_hash, admin } = req.body;
