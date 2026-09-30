@@ -9,12 +9,28 @@ delete = remove um dado
 */
 //Sempre temos que deixar tudo bem documetado
 //SEMPRE TENHA CERTEZA
+import bcrypt from 'bcrypt';
+import * as Yup from 'yup';
 import User from '../models/User.js';
 
 class Usercontrollers {
 	async store(req, res) {
+		//Desse jeito que validamos e cuidamos para que os nossos campos recebam exatamente oque queremos
+		const schema = Yup.object({
+			name: Yup.string().required(),
+			email: Yup.string().required().email(),
+			password: Yup.string().required().min(6),
+			admin: Yup.boolean(),
+		});
+
 		try {
-			const { name, email, password_hash,admin } = req.body;
+			schema.validateSync(req.body, { abortEarly: false, strict: true });
+		} catch (error) {
+			return res.status(400);
+		}
+
+		try {
+			const { name, email, password, admin } = req.body;
 
 			const existUser = await User.findOne({
 				where: {
@@ -27,6 +43,7 @@ class Usercontrollers {
 						'Caro Usuario este email ja se encontra em uso, se possivel utilize outro email',
 				});
 			}
+			const password_hash = await bcrypt.hash(password, 9);
 
 			const user = await User.create({
 				name,
@@ -44,8 +61,8 @@ class Usercontrollers {
 		} catch (error) {
 			console.error(error);
 
-			return res.status(500).json({
-				error: 'Erro ao criar usuário.',
+			return res.status(400).json({
+				error: 'Dados inválidos.',
 			});
 		}
 	}
