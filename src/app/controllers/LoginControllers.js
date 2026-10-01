@@ -9,9 +9,46 @@ delete = remove um dado
 */
 //Sempre temos que deixar tudo bem documetado
 //SEMPRE TENHA CERTEZA
+import bcrypt from 'bcrypt';
+import * as Yup from 'yup';
+import User from '../models/User.js';
+
 class LoginControllers {
 	async store(req, res) {
-		return res.status(200).json({ ok: true });
+		const schema = Yup.object({
+			email: Yup.string().required().email(),
+			password: Yup.string().min(6).required(),
+		});
+		const isValid = await schema.isValid(req.body, { strict: true });
+
+		const emailOfpasswordError = () => {
+			return res.status(400).json({ error: 'errou passeiro' });
+		};
+
+		const { email, password } = req.body;
+
+		const existUser = await User.findOne({
+			where: {
+				email,
+			},
+		});
+		if (!isValid) {
+			emailOfpasswordError();
+		}
+		const corretPassword = await bcrypt.compare(
+			password,
+			existUser.password_hash,
+		);
+		if (!corretPassword) {
+			emailOfpasswordError();
+		}
+
+		return res.status(200).json({
+			id: existUser.id,
+			name: existUser.name,
+			email: existUser.email,
+			admin: existUser.admin,
+		});
 	}
 }
 
