@@ -24,6 +24,9 @@ class LoginControllers {
 		const emailOfpasswordError = () => {
 			return res.status(400).json({ error: 'errou passeiro' });
 		};
+		if (!isValid) {
+			emailOfpasswordError();
+		}
 
 		const { email, password } = req.body;
 
@@ -32,7 +35,7 @@ class LoginControllers {
 				email,
 			},
 		});
-		if (!isValid) {
+		if (!existUser) {
 			emailOfpasswordError();
 		}
 		const corretPassword = await bcrypt.compare(
@@ -40,7 +43,7 @@ class LoginControllers {
 			existUser.password_hash,
 		);
 		if (!corretPassword) {
-			emailOfpasswordError();
+			return res.status(400).json({ error: 'errou passeiro' });
 		}
 
 		return res.status(200).json({
