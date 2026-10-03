@@ -9,10 +9,15 @@ delete = remove um dado
 */
 //Sempre temos que deixar tudo bem documetado
 //SEMPRE TENHA CERTEZA
-
+import * as Yup from 'yup';
 
 class AddProdutsControllers {
 	async store(req, res) {
+		const schema = {
+			name: Yup.string().required(),
+			price: Yup.number().required(),
+			category: Yup.string().required(),
+		};
 		return res.status(201).json({ ok: true });
 	}
 }
