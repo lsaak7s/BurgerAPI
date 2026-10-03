@@ -1,24 +1,25 @@
-/*
-import Sequelize, { Model } from "sequelize";
+/*import Sequelize, { Model } from 'sequelize';
 
 class Products extends Model {
-    static init(Sequelize) {
-        Model.init({
-            name: Sequelize.STRING,
-            price: Sequelize.INTEGER,
-            category: Sequelize.STRING,
-            path: Sequelize.STRING,
-        }, {
-            sequelize,
-            tableName: 'products'
-        })
-    }
+	static init(Sequelize) {
+		Model.init(
+			{
+				name: Sequelize.STRING,
+				price: Sequelize.INTEGER,
+				category: Sequelize.STRING,
+				path: Sequelize.STRING,
+			},
+			{
+				sequelize,
+				tableName: 'products',
+			},
+		);
+	}
 }
 export default Products;
 */
-/** biome-ignore-all assist/source/organizeImports: <explanation> */
 
-import { Model, type Sequelize, DataTypes, type InferAttributes, type InferCreationAttributes } from 'sequelize';
+import { DataTypes, type Sequelize, type InferAttributes, type InferCreationAttributes, Model } from 'sequelize';
 
 class Product extends Model<InferAttributes<Product>, InferCreationAttributes<Product>> {
     declare id: number;
