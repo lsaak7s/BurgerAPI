@@ -26,7 +26,7 @@ class Usercontrollers {
 		try {
 			schema.validateSync(req.body, { abortEarly: false, strict: true });
 		} catch (error) {
-			return res.status(400);
+			return res.status(400).json({err: error.errors});
 		}
 
 		try {
