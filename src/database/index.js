@@ -1,9 +1,10 @@
 //SEMPRE TENHA CERTEZA
 import { Sequelize } from 'sequelize';
+import produts from '../app/models/produts.ts';
 import User from '../app/models/User.js';
 import databaseConfig from '../config/database.cjs';
 
-const models = [User];
+const models = [User,produts];
 
 class Database {
 	constructor() {
