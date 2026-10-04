@@ -11,6 +11,10 @@ const router = new Router();
 
 router.post('/users', UserControllers.store);
 router.post('/Login', LoginControllers.store);
-router.post('/AddProducts', uploads.single(`file`), AddProdutsControllers.store);
+router.post(
+	'/AddProducts',
+	uploads.single(`file`),
+	AddProdutsControllers.store,
+);
 
 export default router;
