@@ -1,6 +1,16 @@
+/* controles
+Padrao da aquitetura MVC
+So pode aver apenas 1 de cada
+store = cria dados
+index = lista todos os dado
+show = lista um dado
+update = atualiza um dado
+delete = remove um dado
+*/
 //SEMPRE TENHA CERTEZA
 import { Router } from 'express';
 import multer from 'multer';
+
 import AddProdutsControllers from './app/controllers/AddProdutsControllers.js';
 import LoginControllers from './app/controllers/LoginControllers.js';
 import UserControllers from './app/controllers/UserControllers.js';
@@ -16,5 +26,6 @@ router.post(
 	uploads.single(`file`),
 	AddProdutsControllers.store,
 );
+router.get('/AddProducts', AddProdutsControllers.index);
 
 export default router;
