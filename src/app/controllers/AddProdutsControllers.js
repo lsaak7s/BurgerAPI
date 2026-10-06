@@ -10,6 +10,7 @@ delete = remove um dado
 //Sempre temos que deixar tudo bem documetado
 //SEMPRE TENHA CERTEZA
 import * as Yup from 'yup';
+import Product from '../models/produts.ts';
 
 class AddProdutsControllers {
 	async store(req, res) {
@@ -19,11 +20,28 @@ class AddProdutsControllers {
 			category: Yup.string().required(),
 		});
 		try {
-			schema.validateSync(req.body, { abortEarly: false});
+			schema.validateSync(req.body, { abortEarly: false });
 		} catch (error) {
-			return res.status(400).json({error: error.errors});
+			return res.status(400).json({ error: error.errors });
 		}
-		return res.status(201).json({ ok: true });
+		try {
+			const { name, price, category } = req.body;
+			const { filename } = req.file;
+
+			const newProducts = await Product.create({
+				name,
+				price,
+				category,
+				path: filename,
+			});
+			return res.status(201).json(newProducts);
+		} catch (error) {
+			return res.status(500).json({ error: error });
+		}
+	}
+	async index(_req, res) {
+		const products = await Product.findAll();
+		return res.status(200).json(products);
 	}
 }
 

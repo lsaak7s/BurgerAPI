@@ -1,4 +1,5 @@
 'use strict';
+//SEMPRE TENHA CERTEZA
 /**@type {import('sequelize-cli').Migration}*/
 
 module.exports = {
@@ -9,6 +10,7 @@ module.exports = {
 				type: Sequelize.INTEGER,
 				primaryKey: true,
 				allowNull: false,
+				autoIncrement: true,
 			},
 			name: {
 				type: Sequelize.STRING,
@@ -18,16 +20,20 @@ module.exports = {
 				type: Sequelize.INTEGER,
 				allowNull: false,
 			},
-			path: {
-				type: Sequelize.INTEGER,
-				allowNull: true,
-			},
-			created: {
+			category: {
 				type: Sequelize.STRING(),
 				allowNull: false,
 			},
-			update: {
+			path: {
 				type: Sequelize.STRING(),
+				allowNull: true,
+			},
+			created_at: {
+				type: Sequelize.DATE(),
+				allowNull: false,
+			},
+			updated_at: {
+				type: Sequelize.DATE(),
 				allowNull: false,
 			},
 		});

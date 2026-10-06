@@ -1,34 +1,23 @@
-/*import Sequelize, { Model } from 'sequelize';
+//SEMPRE TENHA CERTEZA
+import type {
+    CreationOptional,
+    InferAttributes,
+    InferCreationAttributes,
+} from 'sequelize';
 
-class Products extends Model {
-    static init(Sequelize) {
-        Model.init(
-            {
-                name: Sequelize.STRING,
-                price: Sequelize.INTEGER,
-                category: Sequelize.STRING,
-                path: Sequelize.STRING,
-            },
-            {
-                sequelize,
-                tableName: 'products',
-            },
-        );
-    }
-}
-export default Products;
-*/
+import { DataTypes, Model, type Sequelize } from 'sequelize';
 
-import { DataTypes, type Sequelize, type InferAttributes, type InferCreationAttributes, Model } from 'sequelize';
-
-class Product extends Model<InferAttributes<Product>, InferCreationAttributes<Product>> {
-    declare id: number;
+class Product extends Model<
+    InferAttributes<Product>,
+    InferCreationAttributes<Product>
+> {
+    declare id: CreationOptional<number>;
     declare name: string;
     declare price: number;
     declare category: string;
     declare path: string;
+    declare url: CreationOptional<string>;
 }
-
 
 export function initProduct(sequelize: Sequelize): typeof Product {
     Product.init(
@@ -54,10 +43,17 @@ export function initProduct(sequelize: Sequelize): typeof Product {
                 type: DataTypes.STRING,
                 allowNull: false,
             },
+            url: {
+                type: DataTypes.VIRTUAL,
+                get(this: Product): string {
+                    return `http://localhost:3000/product-file/${this.path}`;
+                },
+            },
         },
         {
             sequelize,
             tableName: 'products',
+            underscored: true,
         }
     );
 

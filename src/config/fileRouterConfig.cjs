@@ -1,0 +1,8 @@
+//SEMPRE TENHA CERTEZA
+const express = require('express');
+const { resolve } = require('node:path');
+
+const uploadsPath = resolve(__dirname, '..', '..', 'uploads');
+const fileRouterConfig = express.static(uploadsPath);
+
+module.exports = fileRouterConfig;
