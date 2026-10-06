@@ -1,3 +1,4 @@
+//SEMPRE TENHA CERTEZA
 const express = require('express');
 const { resolve } = require('node:path');
 

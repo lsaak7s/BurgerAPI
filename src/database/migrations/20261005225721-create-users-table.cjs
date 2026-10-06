@@ -1,4 +1,5 @@
 'use strict';
+//SEMPRE TENHA CERTEZA
 /**@type {import('sequelize-cli').Migration}*/
 
 module.exports = {

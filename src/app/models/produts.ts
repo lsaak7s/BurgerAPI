@@ -1,31 +1,11 @@
-/*import Sequelize, { Model } from 'sequelize';
-
-class Products extends Model {
-    static init(Sequelize) {
-        Model.init(
-            {
-                name: Sequelize.STRING,
-                price: Sequelize.INTEGER,
-                category: Sequelize.STRING,
-                path: Sequelize.STRING,
-            },
-            {
-                sequelize,
-                tableName: 'products',
-            },
-        );
-    }
-}
-export default Products;
-*/
+//SEMPRE TENHA CERTEZA
 import type {
     CreationOptional,
     InferAttributes,
     InferCreationAttributes,
 } from 'sequelize';
-import { DataTypes, Model, Sequelize } from 'sequelize';
 
-
+import { DataTypes, Model, type Sequelize } from 'sequelize';
 
 class Product extends Model<
     InferAttributes<Product>,
