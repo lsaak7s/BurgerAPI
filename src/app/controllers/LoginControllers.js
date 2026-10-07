@@ -10,7 +10,9 @@ delete = remove um dado
 //Sempre temos que deixar tudo bem documetado
 //SEMPRE TENHA CERTEZA
 import bcrypt from 'bcrypt';
+import JWT from 'jsonwebtoken';
 import * as Yup from 'yup';
+import auth from '../../config/auth.js';
 import User from '../models/User.js';
 
 class LoginControllers {
@@ -46,11 +48,17 @@ class LoginControllers {
 			return res.status(400).json({ error: 'errou passeiro' });
 		}
 
+		//Aqui estamos gerando o token
+		const token = JWT.sign({ id: existUser.id }, auth.secret, {
+			expiresIn: auth.expiresIn,
+		});
+
 		return res.status(200).json({
 			id: existUser.id,
 			name: existUser.name,
 			email: existUser.email,
 			admin: existUser.admin,
+			token,
 		});
 	}
 }
