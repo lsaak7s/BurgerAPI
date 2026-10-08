@@ -1,7 +1,7 @@
-import JWT, { decode } from 'jsonwebtoken';
+import JWT from 'jsonwebtoken';
 import authConfig from './../config/auth.js';
 
-const authMidllewares = (req, res, _next) => {
+const authMidllewares = (req, res, next) => {
 	const authToken = req.headers.authorization;
 
 	if (!authToken) {
@@ -12,9 +12,15 @@ const authMidllewares = (req, res, _next) => {
 
 	try {
 		JWT.verify(token, authConfig.secret, (error, decoded) => {
-			console.log(decoded);
+			if (error) {
+				throw Error();
+			}
+			req.userid = decoded.id;
 		});
-	} catch (error) {}
+	} catch (_error) {
+		return res.status(401).json({ Error: 'invalido o token tio' });
+	}
+	return next();
 };
 
 export default authMidllewares;

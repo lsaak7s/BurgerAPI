@@ -22,8 +22,10 @@ const router = new Router();
 
 router.post('/users', UserControllers.store);
 router.post('/Login', LoginControllers.store);
+router.use(authMidllewares);
 router.post(
 	'/AddProducts',
+	authMidllewares,
 	uploads.single(`file`),
 	AddProdutsControllers.store,
 );

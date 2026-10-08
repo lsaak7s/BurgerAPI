@@ -40,8 +40,8 @@ class AddProdutsControllers {
 			return res.status(500).json({ error: error });
 		}
 	}
-	async index(_req, res) {
-		console.log(_req);
+	async index(req, res) {
+		console.log(req.userid);
 		const products = await Product.findAll();
 		return res.status(200).json(products);
 	}
