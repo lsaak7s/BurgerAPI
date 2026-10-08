@@ -15,6 +15,7 @@ import AddProdutsControllers from './app/controllers/AddProdutsControllers.js';
 import LoginControllers from './app/controllers/LoginControllers.js';
 import UserControllers from './app/controllers/UserControllers.js';
 import multerConfig from './config/multer.cjs';
+import authMidllewares from './middlewares/auth.js';
 
 const uploads = multer(multerConfig);
 const router = new Router();
@@ -26,6 +27,6 @@ router.post(
 	uploads.single(`file`),
 	AddProdutsControllers.store,
 );
-router.get('/AddProducts', AddProdutsControllers.index);
+router.get('/AddProducts', authMidllewares, AddProdutsControllers.index);
 
 export default router;

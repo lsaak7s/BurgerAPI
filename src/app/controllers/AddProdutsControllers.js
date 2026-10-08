@@ -19,6 +19,7 @@ class AddProdutsControllers {
 			price: Yup.number().required(),
 			category: Yup.string().required(),
 		});
+
 		try {
 			schema.validateSync(req.body, { abortEarly: false });
 		} catch (error) {
@@ -40,6 +41,7 @@ class AddProdutsControllers {
 		}
 	}
 	async index(_req, res) {
+		console.log(_req);
 		const products = await Product.findAll();
 		return res.status(200).json(products);
 	}
