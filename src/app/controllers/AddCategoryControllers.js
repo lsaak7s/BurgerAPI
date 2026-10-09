@@ -10,7 +10,7 @@ delete = remove um dado
 //Sempre temos que deixar tudo bem documetado
 //SEMPRE TENHA CERTEZA
 import * as Yup from 'yup';
-import Category from '../models/Category.js';
+import Category from '../models/category.ts';
 
 class Categories {
 	async store(req, res) {

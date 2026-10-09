@@ -10,13 +10,12 @@ delete = remove um dado
 //SEMPRE TENHA CERTEZA
 import { Router } from 'express';
 import multer from 'multer';
+import AddCategoryControllers from './app/controllers/AddCategoryControllers.js';
 import AddProdutsControllers from './app/controllers/AddProdutsControllers.js';
-import Category from './app/controllers/Category.js';
 import LoginControllers from './app/controllers/LoginControllers.js';
 import UserControllers from './app/controllers/UserControllers.js';
 import multerConfig from './config/multer.cjs';
 import authMidllewares from './middlewares/auth.js';
-
 
 const uploads = multer(multerConfig);
 const router = new Router();
@@ -26,13 +25,12 @@ router.post('/Login', LoginControllers.store);
 router.use(authMidllewares);
 router.post(
 	'/AddProducts',
-	authMidllewares,
 	uploads.single(`file`),
 	AddProdutsControllers.store,
 );
-router.get('/AddProducts', authMidllewares, AddProdutsControllers.index);
+router.get('/AddProducts', AddProdutsControllers.index);
 
-router.post('/Categories', Category.store);
-router.get('/Categories', Category.index);
+router.post('/Categories', AddCategoryControllers.store);
+router.get('/Categories', AddCategoryControllers.index);
 
 export default router;
