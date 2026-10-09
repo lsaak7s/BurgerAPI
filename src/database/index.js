@@ -1,8 +1,11 @@
 //SEMPRE TENHA CERTEZA
 import { Sequelize } from 'sequelize';
-import { initProduct } from '../app/models/produts.ts';
+import Category from '../app/models/Categories.js';
+import initProduct from '../app/models/produts.ts';
 import User from '../app/models/User.js';
 import databaseConfig from '../config/database.cjs';
+
+const models = { User, initProduct, Category };
 
 class Database {
 	constructor() {
@@ -11,8 +14,7 @@ class Database {
 
 	init() {
 		this.connection = new Sequelize(databaseConfig);
-		User.init(this.connection);
-		initProduct(this.connection);
+		models.map((model) => model.init(this.connection));
 	}
 }
 
