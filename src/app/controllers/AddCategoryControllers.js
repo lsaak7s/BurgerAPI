@@ -23,15 +23,23 @@ class Categories {
 		} catch (error) {
 			return res.status(400).json({ error: error.errors });
 		}
-		try {
-			const { name } = req.body;
 
+		const { name } = req.body;
+		const existingCategory = await Category.findOne({
+			where: { name },
+		});
+
+		if (existingCategory) {
+			return res.status(400).json({ error: 'Categoria já existe' });
+		}
+
+		try {
 			const newCategories = await Category.create({
 				name,
 			});
 			return res.status(201).json(newCategories);
 		} catch (error) {
-			return res.status(500).json({ error: error });
+			return res.status(500).json({ error: error.message || error });
 		}
 	}
 	async index(req, res) {

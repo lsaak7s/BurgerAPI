@@ -6,23 +6,23 @@ import User from '../app/models/User.js';
 import databaseConfig from '../config/database.cjs';
 
 const modelInitializers = [
-    (sequelize) => User.init(sequelize),
-    initProduct,
-    initCategory,
+	(sequelize) => User.init(sequelize),
+	initProduct,
+	initCategory,
 ];
 
 class Database {
-    constructor() {
-        this.init();
-    }
+	constructor() {
+		this.init();
+	}
 
-    init() {
-        this.connection = new Sequelize(databaseConfig);
+	init() {
+		this.connection = new Sequelize(databaseConfig);
 
-        modelInitializers.forEach((initializeModel) => {
-            initializeModel(this.connection);
-        });
-    }
+		modelInitializers.forEach((initializeModel) => {
+			initializeModel(this.connection);
+		});
+	}
 }
 
 export default new Database();
