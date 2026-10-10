@@ -7,6 +7,7 @@ show = lista um dado
 update = atualiza um dado
 delete = remove um dado
 */
+//SE PRECISAMOS BUSCAR QUALQUER INFORMAÇÃO DO BANCO DE DADOS IREMOS NOS REFERENCIA NA MODELS
 //Sempre temos que deixar tudo bem documetado
 //SEMPRE TENHA CERTEZA
 import bcrypt from 'bcrypt';
