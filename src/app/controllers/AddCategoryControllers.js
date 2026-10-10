@@ -11,14 +11,12 @@ delete = remove um dado
 //Sempre temos que deixar tudo bem documetado
 //SEMPRE TENHA CERTEZA
 import * as Yup from 'yup';
-import Product from '../models/produts.ts';
+import Category from '../models/category.ts';
 
-class AddProdutsControllers {
+class Categories {
 	async store(req, res) {
 		const schema = Yup.object({
 			name: Yup.string().required(),
-			price: Yup.number().required(),
-			category: Yup.string().required(),
 		});
 
 		try {
@@ -26,26 +24,30 @@ class AddProdutsControllers {
 		} catch (error) {
 			return res.status(400).json({ error: error.errors });
 		}
-		try {
-			const { name, price, category } = req.body;
-			const { filename } = req.file;
 
-			const newProducts = await Product.create({
+		const { name } = req.body;
+		const existingCategory = await Category.findOne({
+			where: { name },
+		});
+
+		if (existingCategory) {
+			return res.status(400).json({ error: 'Categoria já existe' });
+		}
+
+		try {
+			const newCategories = await Category.create({
 				name,
-				price,
-				category,
-				path: filename,
 			});
-			return res.status(201).json(newProducts);
+			return res.status(201).json(newCategories);
 		} catch (error) {
-			return res.status(500).json({ error: error });
+			return res.status(500).json({ error: error.message || error });
 		}
 	}
 	async index(req, res) {
 		console.log(req.userid);
-		const products = await Product.findAll();
-		return res.status(200).json(products);
+		const Categories = await Category.findAll();
+		return res.status(200).json(Categories);
 	}
 }
 
-export default new AddProdutsControllers();
+export default new Categories();
