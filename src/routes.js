@@ -29,7 +29,6 @@ router.post(
 	AddProdutsControllers.store,
 );
 router.get('/AddProducts', AddProdutsControllers.index);
-
 router.post('/Categories', AddCategoryControllers.store);
 router.get('/Categories', AddCategoryControllers.index);
 
