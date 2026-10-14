@@ -1,8 +1,7 @@
 import type {
   CreationOptional,
   InferAttributes,
-  InferCreationAttributes,
-  NonAttribute,
+  InferCreationAttributes
 } from 'sequelize';
 
 import { DataTypes, Model, type Sequelize } from 'sequelize';

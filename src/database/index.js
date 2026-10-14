@@ -5,24 +5,26 @@ import { initProduct } from '../app/models/produts.ts';
 import { initUser } from '../app/models/User.js';
 import databaseConfig from '../config/database.cjs';
 
-const modelInitializers = [
-  initUser,
-  initProduct,
-  initCategory,
-];
+const modelInitializers = [initUser, initProduct, initCategory];
 
 class Database {
-  constructor() {
-    this.init();
-  }
+	constructor() {
+		this.init();
+	}
 
-  init() {
-    this.connection = new Sequelize(databaseConfig);
+	init() {
+		this.connection = new Sequelize(databaseConfig);
 
-    modelInitializers.forEach((initializeModel) => {
-      initializeModel(this.connection);
-    });
-  }
+		modelInitializers.forEach((initializeModel) => {
+			initializeModel(this.connection);
+		});
+		// ✅ CERTO - com { } não retorna nada
+		modelInitializers.forEach((model) => {
+			if (model.associate) {
+				model.associate(this.connection.models);
+			}
+		});
+	}
 }
 
 export default new Database();
