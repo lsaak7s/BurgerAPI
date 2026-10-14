@@ -18,7 +18,7 @@ class AddProdutsControllers {
 		const schema = Yup.object({
 			name: Yup.string().required(),
 			price: Yup.number().required(),
-			category: Yup.string().required(),
+			category_id: Yup.string().required(),
 		});
 
 		try {
@@ -27,18 +27,18 @@ class AddProdutsControllers {
 			return res.status(400).json({ error: error.errors });
 		}
 		try {
-			const { name, price, category } = req.body;
+			const { name, price, category_id } = req.body;
 			const { filename } = req.file;
 
 			const newProducts = await Product.create({
 				name,
 				price,
-				category,
+				category_id,
 				path: filename,
 			});
 			return res.status(201).json(newProducts);
 		} catch (error) {
-			return res.status(500).json({ error: error });
+			return res.status(501).json({ error: error});
 		}
 	}
 	async index(req, res) {

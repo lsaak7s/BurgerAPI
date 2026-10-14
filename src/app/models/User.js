@@ -1,29 +1,34 @@
 //SEMPRE TENHA CERTEZA
-import Sequelize, { Model } from 'sequelize';
+import { DataTypes, Model } from 'sequelize';
 
-class User extends Model {
-	static init(sequelize) {
-		Model.init(
-			{
-				id: {
-					type: Sequelize.UUID,
-					defaultValue: Sequelize.UUIDV4,
-					primaryKey: true,
-				},
-				name: Sequelize.STRING,
-				email: Sequelize.STRING,
-				password_hash: Sequelize.STRING,
-				admin: Sequelize.BOOLEAN,
-			},
-			{
-				sequelize,
-				tableName: 'users',
-				timestamps: true,
-				createdAt: 'created',
-				updatedAt: 'update',
-				underscored: true,
-			},
-		);
-	}
+class User extends Model {}
+
+export function initUser(sequelize) {
+  if (User.sequelize) {
+    return User;
+  }
+
+  User.init(
+    {
+      id: {
+        type: DataTypes.UUID,
+        defaultValue: DataTypes.UUIDV4,
+        primaryKey: true,
+      },
+      name: DataTypes.STRING,
+      email: DataTypes.STRING,
+      password_hash: DataTypes.STRING,
+      admin: DataTypes.BOOLEAN,
+    },
+    {
+      sequelize,
+      tableName: 'users',
+      timestamps: true,
+      underscored: true,
+    }
+  );
+
+  return User;
 }
+
 export default User;
