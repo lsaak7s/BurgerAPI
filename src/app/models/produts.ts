@@ -6,7 +6,7 @@ import type {
 
 import { DataTypes, Model, type Sequelize } from 'sequelize';
 
-import type Category from './Category';
+import type Category from './category.ts';
 
 interface Models {
   Category: typeof Category;
