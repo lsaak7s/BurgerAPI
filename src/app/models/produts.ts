@@ -1,11 +1,17 @@
-//SEMPRE TENHA CERTEZA
 import type {
   CreationOptional,
   InferAttributes,
   InferCreationAttributes,
+  NonAttribute,
 } from 'sequelize';
 
 import { DataTypes, Model, type Sequelize } from 'sequelize';
+
+import type Category from './Category';
+
+interface Models {
+  Category: typeof Category;
+}
 
 class Product extends Model<
   InferAttributes<Product>,
@@ -14,9 +20,15 @@ class Product extends Model<
   declare id: CreationOptional<number>;
   declare name: string;
   declare price: number;
-  declare category_id: number;
   declare path: string;
-  declare readonly url: CreationOptional<string>;
+  declare readonly url: string | null; // ← com declare
+
+  static associate(models: Models): void {
+    Product.belongsTo(models.Category, {
+      foreignKey: 'category_id',
+      as: 'category',
+    });
+  }
 }
 
 export function initProduct(sequelize: Sequelize): typeof Product {
@@ -32,10 +44,6 @@ export function initProduct(sequelize: Sequelize): typeof Product {
         allowNull: false,
       },
       price: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-      },
-      category_id: {
         type: DataTypes.INTEGER,
         allowNull: false,
       },
