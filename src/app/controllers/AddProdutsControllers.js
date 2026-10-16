@@ -11,14 +11,15 @@ delete = remove um dado
 //Sempre temos que deixar tudo bem documetado
 //SEMPRE TENHA CERTEZA
 import * as Yup from 'yup';
-import Product from '../models/produts.ts';
+import Category from '../models/category.js';
+import Product from '../models/produts.js';
 
 class AddProdutsControllers {
 	async store(req, res) {
 		const schema = Yup.object({
 			name: Yup.string().required(),
 			price: Yup.number().required(),
-			category_id: Yup.string().required(),
+			category_id: Yup.number().required(),
 		});
 
 		try {
@@ -38,12 +39,17 @@ class AddProdutsControllers {
 			});
 			return res.status(201).json(newProducts);
 		} catch (error) {
-			return res.status(501).json({ error: error});
+			return res.status(501).json({ error: error });
 		}
 	}
-	async index(req, res) {
-		console.log(req.userid);
-		const products = await Product.findAll();
+	async index(_req, res) {
+		const products = await Product.findAll({
+			include: {
+				model: Category,
+				as: 'category',
+				attributes: ['id', 'name'],
+			},
+		});
 		return res.status(200).json(products);
 	}
 }

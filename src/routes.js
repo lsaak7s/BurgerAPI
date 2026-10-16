@@ -13,7 +13,7 @@ import multer from 'multer';
 import AddCategoryControllers from './app/controllers/AddCategoryControllers.js';
 import AddProdutsControllers from './app/controllers/AddProdutsControllers.js';
 import LoginControllers from './app/controllers/LoginControllers.js';
-import UserControllers from './app/controllers/UserControllers.js';
+import UserControllers from './app/controllers/userControllers.js';
 import multerConfig from './config/multer.cjs';
 import authMidllewares from './middlewares/auth.js';
 
