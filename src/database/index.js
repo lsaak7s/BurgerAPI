@@ -16,23 +16,17 @@ class Database {
 	init() {
 		this.connection = new Sequelize(databaseConfig);
 
-		modelInitializers.forEach((initializeModel) => {
-			initializeModel(this.connection);
-		});
-		modelInitializers.forEach((model) => {
-			if (model.associate) {
-				model.associate(this.connection.models);
-			}
-		});
-		modelInitializers.forEach((model) => {
-			if (model.associate) {
-				model.associate(this.connection.models);
-			}
-		});
+		// 1º: inicializa e guarda os models
+		const models = modelInitializers.map((initializeModel) =>
+			initializeModel(this.connection),
+		);
 
-		// DEBUG temporário
-		console.log('Models:', Object.keys(this.connection.models));
-		console.log('Associations Product:', Object.keys(Product.associations));
+		// 2º: chama o associate passando this.connection.models
+		models.forEach((model) => {
+			if (model && typeof model.associate === 'function') {
+				model.associate(this.connection.models);
+			}
+		});
 	}
 }
 
