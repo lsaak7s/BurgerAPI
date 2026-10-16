@@ -22,14 +22,18 @@ const router = new Router();
 
 router.post('/users', UserControllers.store);
 router.post('/Login', LoginControllers.store);
+
+
+
+
 router.use(authMidllewares);
+router.get('/listCategories', AddCategoryControllers.index);
+router.get('/listProducts', AddProdutsControllers.index);
+router.post('/AddCategories', AddCategoryControllers.store);
 router.post(
 	'/AddProducts',
 	uploads.single(`file`),
 	AddProdutsControllers.store,
 );
-router.get('/AddProducts', AddProdutsControllers.index);
-router.post('/Categories', AddCategoryControllers.store);
-router.get('/Categories', AddCategoryControllers.index);
 
 export default router;
