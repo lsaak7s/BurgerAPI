@@ -12,16 +12,12 @@ delete = remove um dado
 //SEMPRE TENHA CERTEZA
 // Importa o bcrypt, usado para comparar senhas de forma segura (compara a senha digitada com a criptografada)
 import bcrypt from 'bcrypt';
-
 // Importa o jsonwebtoken, usado para gerar o token de acesso (autenticação do usuário)
 import JWT from 'jsonwebtoken';
-
 // Importa o Yup, usado para validar as informações enviadas pelo cliente
 import * as Yup from 'yup';
-
 // Importa as configurações do JWT (chave secreta e tempo de expiração)
 import auth from '../../config/auth.js';
-
 // Importa o modelo User, para pesquisar os dados do usuário no banco de dados
 import User from '../models/User.js';
 
@@ -77,11 +73,16 @@ class LoginControllers {
 		}
 
 		// Aqui gera o token JWT assinado com o ID do usuário, usando a chave secreta e tempo de expiração
-		const token = JWT.sign({ id: existUser.id }, auth.secret, {
-			expiresIn: auth.expiresIn,
-		});
-		console.log('🔑 [LOGIN] SECRET USADA:', auth.secret);
-		console.log('🎟️ [LOGIN] TOKEN GERADO:', token);
+		const token = JWT.sign(
+			{ id: existUser.id, admin: existUser.admin },
+			auth.secret,
+			{
+				expiresIn: auth.expiresIn,
+			},
+		);
+
+		//console.log('🔑 [LOGIN] SECRET USADA:', auth.secret);
+		//console.log('🎟️ [LOGIN] TOKEN GERADO:', token);
 
 		// Se tudo der certo, retorna o status 200 (sucesso) com os dados do usuário e o token
 		return res.status(200).json({
