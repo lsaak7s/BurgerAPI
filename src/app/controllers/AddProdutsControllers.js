@@ -43,7 +43,7 @@ class AddProdutsControllers {
 		// Agora que os dados passaram na validação, tenta criar o produto
 		try {
 			// Extrai os campos do corpo da requisição
-			const { name, price, category_id } = req.body;
+			const { name, price, category_id, offer } = req.body;
 
 			// Pega o nome do arquivo enviado (a imagem do produto)
 			// O multer (ou similar) coloca o arquivo em req.file
@@ -61,8 +61,8 @@ class AddProdutsControllers {
 			// Se tudo deu certo, retorna o produto recém-criado com status 201 (criado)
 			return res.status(201).json(newProducts);
 		} catch (error) {
-			// Se der erro aqui (exemplo: arquivo não enviado, banco fora do ar), retorna erro 501
-			return res.status(500).json({ mensagen: error.errors });
+			console.error('❌ ERRO AO CRIAR PRODUTO:', error); // 👈 ADICIONE ESSA LINHA
+			return res.status(500).json({ error: error.message });
 		}
 	}
 
