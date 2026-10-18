@@ -28,6 +28,7 @@ class AddProdutsControllers {
 			name: Yup.string().required(), // nome tem que ser texto e é obrigatório
 			price: Yup.number().required(), // preço tem que ser número e é obrigatório
 			category_id: Yup.number().required(), // id da categoria tem que ser número e é obrigatório
+			offer: Yup.boolean(),
 		});
 
 		// Tenta validar os dados enviados
@@ -54,6 +55,7 @@ class AddProdutsControllers {
 				price,
 				category_id,
 				path: filename, // salva o caminho/imagem do produto
+				offer,
 			});
 
 			// Se tudo deu certo, retorna o produto recém-criado com status 201 (criado)

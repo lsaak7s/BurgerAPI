@@ -43,7 +43,9 @@ export function initProduct(sequelize) {
 				type: DataTypes.STRING, // Tipo texto (ex: "foto-produto.jpg")
 				allowNull: false, // Não pode ficar vazio
 			},
-
+			offer: {
+				type: DataTypes.BOOLEAN,
+			},
 			// Coluna VIRTUAL: não existe no banco, só na resposta JSON
 			// Útil para montar um link completo da imagem para o cliente
 			url: {
