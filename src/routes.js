@@ -35,5 +35,9 @@ router.post(
 	uploads.single(`file`),
 	AddProdutsControllers.store,
 );
-
+router.put(
+	'/AddProducts/:id',
+	uploads.single(`file`),
+	AddProdutsControllers.update,
+);
 export default router;

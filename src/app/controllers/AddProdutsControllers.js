@@ -18,6 +18,7 @@ import Category from '../models/category.js';
 
 // Importa o modelo Product (produtos) para criar e listar produtos
 import Product from '../models/produts.js';
+import { where } from 'sequelize';
 
 // Classe responsável pelas rotas de produtos
 class AddProdutsControllers {
@@ -60,6 +61,60 @@ class AddProdutsControllers {
 
 			// Se tudo deu certo, retorna o produto recém-criado com status 201 (criado)
 			return res.status(201).json(newProducts);
+		} catch (error) {
+			console.error('❌ ERRO AO CRIAR PRODUTO:', error); // 👈 ADICIONE ESSA LINHA
+			return res.status(500).json({ error: error.message });
+		}
+	}
+	async update(req, res) {
+		// Define as regras de validação: os campos precisam existir e ter os tipos corretos
+		const schema = Yup.object({
+			name: Yup.string(), // nome tem que ser texto e é obrigatório
+			price: Yup.number(), // preço tem que ser número e é obrigatório
+			category_id: Yup.number(), // id da categoria tem que ser número e é obrigatório
+			offer: Yup.boolean(),
+		});
+
+		// Tenta validar os dados enviados
+		try {
+			// Se algum campo estiver errado, abortEarly: false faz retornar todos os erros de uma vez
+			schema.validateSync(req.body, { abortEarly: false });
+		} catch (error) {
+			// Se a validação falhou, devolve erro 400 (requisição inválida) com a lista de erros
+			return res.status(400).json({ error: error.errors });
+		}
+
+		// Agora que os dados passaram na validação, tenta criar o produto
+		try {
+			// Extrai os campos do corpo da requisição
+			const { name, price, category_id, offer } = req.body;
+			const { id } = req.params;
+			// Pega o nome do arquivo enviado (a imagem do produto)
+			// O multer (ou similar) coloca o arquivo em req.file
+			let path;
+			if (req.filename) {
+				const { filename } = req.file;
+				path = filename;
+			}
+
+			// Cria o produto no banco de dados
+			await Product.update(
+				{
+					name,
+					price,
+					category_id,
+					path, // salva o caminho/imagem do produto
+					offer,
+				},
+				{
+					where: {
+						id,
+					},
+				},
+			);
+
+			// Se tudo deu certo, retorna o produto recém-criado com status 201 (criado)
+			return res.status(201).json('products atualizado com sucesso');
 		} catch (error) {
 			console.error('❌ ERRO AO CRIAR PRODUTO:', error); // 👈 ADICIONE ESSA LINHA
 			return res.status(500).json({ error: error.message });
