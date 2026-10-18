@@ -62,8 +62,7 @@ class AddProdutsControllers {
 			return res.status(201).json(newProducts);
 		} catch (error) {
 			// Se der erro aqui (exemplo: arquivo não enviado, banco fora do ar), retorna erro 501
-			// Obs: o ideal seria usar 500 (erro interno) em vez de 501 (não implementado)
-			return res.status(501).json({ error: error });
+			return res.status(500).json({ mensagen: error.errors });
 		}
 	}
 
