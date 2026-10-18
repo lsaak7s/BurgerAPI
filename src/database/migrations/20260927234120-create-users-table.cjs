@@ -1,17 +1,25 @@
+/* 
+=============================================================================
+MIGRATION DE CRIAÇÃO DA TABELA DE USUÁRIOS (create-users-table.cjs)
+=============================================================================
+Padrão da arquitetura / Migrations do Sequelize:
+- up: Executa a alteração no banco, criando a tabela "users" com suas colunas
+  (id via UUID, name, email único, password_hash, admin e timestamps).
+- down: Reverte a alteração desfazendo o que o up fez (remove a tabela "users").
+=============================================================================
+*/
+
 'use strict';
-//SEMPRE TENHA CERTEZA
-//up: aplica a mudança — cria a tabela.
-//down: desfaz a mudança — remove a tabela.
+
 const { BOOLEAN } = require('sequelize');
-// Aqui criamos a tabela de usuários no banco de dados.
-/**@type {import('sequelize-cli').Migration} */
+
+/** @type {import('sequelize-cli').Migration} */
 module.exports = {
 	async up(queryInterface, Sequelize) {
 		await queryInterface.createTable('users', {
 			id: {
 				primaryKey: true,
 				allowNull: false,
-				//type de id que serar gerado
 				type: Sequelize.UUID,
 				defaultValue: Sequelize.UUIDV4,
 			},
@@ -42,7 +50,7 @@ module.exports = {
 			},
 		});
 	},
-	// Remove a tabela users ao desfazer esta migration.
+
 	async down(queryInterface) {
 		await queryInterface.dropTable('users');
 	},

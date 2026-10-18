@@ -1,20 +1,20 @@
-//SEMPRE TENHA CERTEZA
-// Importa a ferramenta 'resolve' do Node.js para montar caminhos de arquivos de forma correta
-// Isso evita problemas com diferenças entre Windows e Linux (ex: "C:\projetos" vs "/home/user/projetos")
+/* 
+=============================================================================
+CONFIGURAÇÃO DO SEQUELIZE CLI (.sequelizerc)
+=============================================================================
+Padrão da arquitetura / Configuração de Ferramentas CLI:
+- Orienta o Sequelize CLI (ou bibliotecas de migração como Umzug) sobre a
+  estrutura de diretórios do projeto.
+- 'config': Aponta para as credenciais de banco em "src/config/database.cjs".
+- 'migrations-path': Indica onde estão os scripts de migração em "src/database/migrations".
+- 'models-path': Indica o diretório dos modelos em "src/app/models".
+=============================================================================
+*/
+
 const { resolve } = require('node:path');
 
-// Exporta um objeto com as configurações usadas pela ferramenta 'umzug'
-// (A umzug é uma biblioteca comum para rodar migrações do banco de dados no Node.js)
 module.exports = {
-	// Caminho exato para o arquivo de configuração do banco de dados
-	// A umzug precisa saber onde está o database.cjs para se conectar corretamente
-	'config': resolve(__dirname, 'src', 'config', 'database.cjs'),
-
-	// Caminho para a pasta onde ficam as "migrações"
-	// Migrações são scripts que alteram a estrutura do banco (ex: criar tabela, adicionar coluna)
+	config: resolve(__dirname, 'src', 'config', 'database.cjs'),
 	'migrations-path': resolve(__dirname, 'src', 'database', 'migrations'),
-
-	// Caminho para a pasta onde ficam os modelos (as classes que representam as tabelas)
-	// A umzug pode usar esses modelos para validar as migrações ou gerar dados iniciais
 	'models-path': resolve(__dirname, 'src', 'app', 'models'),
 };

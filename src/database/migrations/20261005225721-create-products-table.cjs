@@ -1,11 +1,20 @@
-'use strict';
-//SEMPRE TENHA CERTEZA
-/**@type {import('sequelize-cli').Migration}*/
+/* 
+=============================================================================
+MIGRATION DE CRIAÇÃO DA TABELA DE PRODUTOS (create-products-table.cjs)
+=============================================================================
+Padrão da arquitetura / Migrations do Sequelize:
+- up: Executa a criação da tabela "products" com identificador autoincrementável
+  (INTEGER), name, price, category_id, path (caminho da imagem) e timestamps.
+- down: Reverte a alteração desfazendo o que o up fez (remove a tabela "products").
+=============================================================================
+*/
 
+'use strict';
+
+/** @type {import('sequelize-cli').Migration} */
 module.exports = {
 	async up(queryInterface, Sequelize) {
 		await queryInterface.createTable('products', {
-			//1,2,3,4,5 sequencia numerica
 			id: {
 				type: Sequelize.INTEGER,
 				primaryKey: true,
