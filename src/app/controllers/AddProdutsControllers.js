@@ -18,7 +18,6 @@ import Category from '../models/category.js';
 
 // Importa o modelo Product (produtos) para criar e listar produtos
 import Product from '../models/produts.js';
-import { where } from 'sequelize';
 
 // Classe responsável pelas rotas de produtos
 class AddProdutsControllers {
