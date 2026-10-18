@@ -1,13 +1,18 @@
-/* controles
-Padrao da aquitetura MVC
-So pode aver apenas 1 de cada
-store = cria dados
-index = lista todos os dado
-show = lista um dado
-update = atualiza um dado
-delete = remove um dado
+/* 
+=============================================================================
+ROTEADOR DA APLICAÇÃO (src/routes.js)
+=============================================================================
+Padrão da arquitetura / Rotas da API:
+- Centraliza e organiza todos os endpoints e métodos HTTP (POST, GET, PUT) do sistema.
+- Rotas Públicas: Criação de usuário (/users) e Login (/Login).
+- Barreira 1 (authMidllewares): Exige token JWT válido para consultar categorias
+  (/listCategories) e produtos (/listProducts).
+- Barreira 2 (adminMidllewares): Exige privilégios de administrador para criar categorias
+  (/AddCategories) e criar ou atualizar produtos (/AddProducts) com suporte a upload
+  de imagem via Multer.
+=============================================================================
 */
-//SEMPRE TENHA CERTEZA
+
 import { Router } from 'express';
 import multer from 'multer';
 import AddCategoryControllers from './app/controllers/AddCategoryControllers.js';
@@ -20,10 +25,10 @@ import authMidllewares from './middlewares/auth.js';
 
 const uploads = multer(multerConfig);
 const router = new Router();
-//LOGIN
+//init
 router.post('/users', UserControllers.store);
 router.post('/Login', LoginControllers.store);
-//SPA
+//Users
 router.use(authMidllewares);
 router.get('/listCategories', AddCategoryControllers.index);
 router.get('/listProducts', AddProdutsControllers.index);
@@ -32,8 +37,13 @@ router.use(adminMidllewares);
 router.post('/AddCategories', AddCategoryControllers.store);
 router.post(
 	'/AddProducts',
-	uploads.single(`file`),
+	uploads.single('file'),
 	AddProdutsControllers.store,
+);
+router.put(
+	'/AddProducts/:id',
+	uploads.single('file'),
+	AddProdutsControllers.update,
 );
 
 export default router;
