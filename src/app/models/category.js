@@ -24,7 +24,19 @@ export function initCategory(sequelize) {
 		{
 			name: {
 				type: DataTypes.STRING,
-				allowNull: false,
+			},
+			path: {
+				type: DataTypes.STRING,
+			},
+			url: {
+				type: DataTypes.VIRTUAL,
+				get() {
+					const file = this.getDataValue('path');
+
+					if (!file) return null;
+
+					return `http://localhost:3000/category-file/${encodeURIComponent(file)}`;
+				},
 			},
 		},
 		{

@@ -34,7 +34,11 @@ router.get('/listCategories', AddCategoryControllers.index);
 router.get('/listProducts', AddProdutsControllers.index);
 //Admin
 router.use(adminMidllewares);
-router.post('/AddCategories', AddCategoryControllers.store);
+router.post(
+	'/AddCategories',
+	uploads.single('file'),
+	AddCategoryControllers.store,
+);
 router.post(
 	'/AddProducts',
 	uploads.single('file'),

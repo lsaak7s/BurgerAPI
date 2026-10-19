@@ -24,18 +24,20 @@ class Categories {
 		}
 
 		const { name } = req.body;
+		const { filename } = req.file;
 
 		const existingCategory = await Category.findOne({
 			where: { name },
 		});
 
 		if (existingCategory) {
-			return res.status(400).json({ error: 'Categoria já existe' });
+			return res.status(400).json({ error: error.message });
 		}
 
 		try {
 			const newCategories = await Category.create({
 				name,
+				path: filename,
 			});
 
 			return res.status(201).json(newCategories);
@@ -45,7 +47,7 @@ class Categories {
 	}
 
 	async index(_req, res) {
-		const Categories = await Category.findAll();
+		const Categories = await Category.findAll({});
 
 		return res.status(200).json(Categories);
 	}
