@@ -39,6 +39,11 @@ router.post(
 	uploads.single('file'),
 	AddCategoryControllers.store,
 );
+router.put(
+	'/AddCategories/:id',
+	uploads.single('file'),
+	AddCategoryControllers.update,
+);
 router.post(
 	'/AddProducts',
 	uploads.single('file'),
