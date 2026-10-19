@@ -13,7 +13,7 @@ Padrão da arquitetura / Database Layer:
 
 import { Sequelize } from 'sequelize';
 import { initCategory } from '../app/models/category.js';
-import { initProduct } from '../app/models/produts.js';
+import { initProduct } from '../app/models/product.js';
 import { initUser } from '../app/models/User.js';
 
 import databaseConfig from '../config/database.cjs';

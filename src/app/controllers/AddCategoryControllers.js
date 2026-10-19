@@ -24,23 +24,69 @@ class Categories {
 		}
 
 		const { name } = req.body;
+		const { filename } = req.file;
 
 		const existingCategory = await Category.findOne({
 			where: { name },
 		});
 
 		if (existingCategory) {
-			return res.status(400).json({ error: 'Categoria já existe' });
+			return res.status(400).json({ error: error.message });
 		}
 
 		try {
 			const newCategories = await Category.create({
 				name,
+				path: filename,
 			});
 
 			return res.status(201).json(newCategories);
 		} catch (error) {
 			return res.status(500).json({ error: error.message || error });
+		}
+	}
+	async update(req, res) {
+		const { name } = req.body;
+		const { id } = req.params;
+		const schema = Yup.object({
+			name: Yup.string(),
+		});
+
+		try {
+			schema.validateSync(req.body, { abortEarly: false });
+			const existingCategory = await Category.findOne({
+				where: { name },
+			});
+
+			if (existingCategory) {
+				return res.status(400).json({ Error: 'Categoria já foi atualizada' });
+			}
+		} catch (error) {
+			return res.status(401).json({ Error: error.errors || error.message });
+		}
+
+		try {
+			let path;
+			if (!req.file) {
+				const filename = req.file;
+				path = filename;
+			}
+
+			await Category.update(
+				{
+					name,
+					path,
+				},
+				{
+					where: {
+						id,
+					},
+				},
+			);
+
+			return res.status(201).json('Categoria atualizado com Sucesso');
+		} catch (error) {
+			return res.status(500).json({ Error: error.message || error });
 		}
 	}
 

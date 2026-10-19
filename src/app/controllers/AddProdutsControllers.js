@@ -11,7 +11,7 @@ Padrão da arquitetura MVC:
 
 import * as Yup from 'yup';
 import Category from '../models/category.js';
-import Product from '../models/produts.js';
+import Product from '../models/product.js';
 
 class AddProdutsControllers {
 	async store(req, res) {
