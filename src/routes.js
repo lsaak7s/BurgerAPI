@@ -18,6 +18,7 @@ import multer from 'multer';
 import AddCategoryControllers from './app/controllers/AddCategoryControllers.js';
 import AddProdutsControllers from './app/controllers/AddProdutsControllers.js';
 import LoginControllers from './app/controllers/LoginControllers.js';
+import OrderControllers from './app/controllers/OrderControllers.js';
 import UserControllers from './app/controllers/userControllers.js';
 import multerConfig from './config/multer.cjs';
 import adminMidllewares from './middlewares/admin.js';
@@ -54,5 +55,6 @@ router.put(
 	uploads.single('file'),
 	AddProdutsControllers.update,
 );
+router.post('/Orders', OrderControllers.store);
 
 export default router;
