@@ -10,7 +10,7 @@ Padrão da arquitetura / Database Layer:
 - Exporta uma instância única (Singleton) da classe Database.
 =============================================================================
 */
-
+import mongoose from 'mongoose';
 import { Sequelize } from 'sequelize';
 import { initCategory } from '../app/models/category.js';
 import { initProduct } from '../app/models/product.js';
@@ -23,6 +23,7 @@ const modelInitializers = [initUser, initProduct, initCategory];
 class Database {
 	constructor() {
 		this.init();
+		this.mongo();
 	}
 
 	init() {
@@ -37,6 +38,9 @@ class Database {
 				model.associate(this.connection.models);
 			}
 		});
+	}
+	mongo() {
+		this.mongooseConection = mongoose.connect('mongodb://localhost:27017/burguerapi');
 	}
 }
 
