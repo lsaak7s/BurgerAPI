@@ -35,22 +35,14 @@ router.get('/listCategories', CategoryControllers.index);
 router.get('/listProducts', ProdutsControllers.index);
 //Admin
 router.use(adminMidllewares);
-router.post(
-	'/Categories',
-	uploads.single('file'),
-	CategoryControllers.store,
-);
+router.post('/Categories', uploads.single('file'), CategoryControllers.store);
 router.put(
 	'/Categories/:id',
 	uploads.single('file'),
 	CategoryControllers.update,
 );
 router.post('/Products', uploads.single('file'), ProdutsControllers.store);
-router.put(
-	'/Products/:id',
-	uploads.single('file'),
-	ProdutsControllers.update,
-);
+router.put('/Products/:id', uploads.single('file'), ProdutsControllers.update);
 router.post('/Pedidos', PedidosControllers.store);
 
 export default router;
