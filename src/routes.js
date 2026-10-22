@@ -36,18 +36,18 @@ router.get('/listProducts', ProdutsControllers.index);
 //Admin
 router.use(adminMidllewares);
 router.post(
-	'/AddCategories',
+	'/Categories',
 	uploads.single('file'),
 	CategoryControllers.store,
 );
 router.put(
-	'/AddCategories/:id',
+	'/Categories/:id',
 	uploads.single('file'),
 	CategoryControllers.update,
 );
-router.post('/AddProducts', uploads.single('file'), ProdutsControllers.store);
+router.post('/Products', uploads.single('file'), ProdutsControllers.store);
 router.put(
-	'/AddProducts/:id',
+	'/Products/:id',
 	uploads.single('file'),
 	ProdutsControllers.update,
 );
