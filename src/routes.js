@@ -15,10 +15,11 @@ Padrão da arquitetura / Rotas da API:
 
 import { Router } from 'express';
 import multer from 'multer';
-import AddCategoryControllers from './app/controllers/AddCategoryControllers.js';
-import AddProdutsControllers from './app/controllers/AddProdutsControllers.js';
+import CategoryControllers from './app/controllers/CategoryControllers.js';
 import LoginControllers from './app/controllers/LoginControllers.js';
-import UserControllers from './app/controllers/userControllers.js';
+import PedidosControllers from './app/controllers/PedidosControllers.js';
+import ProdutsControllers from './app/controllers/ProdutsControllers.js';
+import UserControllers from './app/controllers/UserControllers.js';
 import multerConfig from './config/multer.cjs';
 import adminMidllewares from './middlewares/admin.js';
 import authMidllewares from './middlewares/auth.js';
@@ -30,29 +31,18 @@ router.post('/users', UserControllers.store);
 router.post('/Login', LoginControllers.store);
 //Users
 router.use(authMidllewares);
-router.get('/listCategories', AddCategoryControllers.index);
-router.get('/listProducts', AddProdutsControllers.index);
+router.get('/listCategories', CategoryControllers.index);
+router.get('/listProducts', ProdutsControllers.index);
 //Admin
 router.use(adminMidllewares);
-router.post(
-	'/AddCategories',
-	uploads.single('file'),
-	AddCategoryControllers.store,
-);
+router.post('/Categories', uploads.single('file'), CategoryControllers.store);
 router.put(
-	'/AddCategories/:id',
+	'/Categories/:id',
 	uploads.single('file'),
-	AddCategoryControllers.update,
+	CategoryControllers.update,
 );
-router.post(
-	'/AddProducts',
-	uploads.single('file'),
-	AddProdutsControllers.store,
-);
-router.put(
-	'/AddProducts/:id',
-	uploads.single('file'),
-	AddProdutsControllers.update,
-);
+router.post('/Products', uploads.single('file'), ProdutsControllers.store);
+router.put('/Products/:id', uploads.single('file'), ProdutsControllers.update);
+router.post('/Pedidos', PedidosControllers.store);
 
 export default router;

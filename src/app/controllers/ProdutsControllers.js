@@ -1,6 +1,6 @@
 /* 
 =============================================================================
-CONTROLLER DE PRODUTOS (AddProdutsControllers.js)
+CONTROLLER DE PRODUTOS (ProdutsControllers.js)
 =============================================================================
 Padrão da arquitetura MVC:
 - store  = Cria um novo produto (valida dados, imagem e salva no banco de dados)
@@ -10,8 +10,8 @@ Padrão da arquitetura MVC:
 */
 
 import * as Yup from 'yup';
-import Category from '../models/category.js';
-import Product from '../models/product.js';
+import Category from '../models/Category.js';
+import Product from '../models/Product.js';
 
 class AddProdutsControllers {
 	async store(req, res) {

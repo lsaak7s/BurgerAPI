@@ -28,6 +28,7 @@ const authMidllewares = (req, res, next) => {
 		const decoded = JWT.verify(token, authConfig.secret);
 
 		req.userid = decoded.id;
+		req.username = decoded.name;
 		req.userIsAdmin = decoded.admin;
 
 		return next();

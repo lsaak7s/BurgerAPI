@@ -1,6 +1,6 @@
 /* 
 =============================================================================
-CONTROLLER DE CATEGORIAS (AddCategoryControllers.js)
+CONTROLLER DE CATEGORIAS (CategoryControllers.js)
 =============================================================================
 Padrão da arquitetura MVC:
 - store  = Cria uma nova categoria (valida se o nome já existe no banco)
@@ -9,7 +9,7 @@ Padrão da arquitetura MVC:
 */
 
 import * as Yup from 'yup';
-import Category from '../models/category.js';
+import Category from '../models/Category.js';
 
 class Categories {
 	async store(req, res) {
