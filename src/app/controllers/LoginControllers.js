@@ -54,7 +54,7 @@ class LoginControllers {
 		}
 
 		const token = JWT.sign(
-			{ id: existUser.id, admin: existUser.admin },
+			{ id: existUser.id, admin: existUser.admin, name: existUser.name },
 			auth.secret,
 			{
 				expiresIn: auth.expiresIn,
