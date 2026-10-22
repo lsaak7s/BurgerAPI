@@ -8,7 +8,10 @@ Padrão da arquitetura MVC:
 - index  = Lista todos os produtos cadastrados, incluindo a categoria de cada um
 =============================================================================
 */
+
 import * as Yup from 'yup';
+import Category from '../models/Category.js';
+import Product from '../models/Product.js';
 
 class PedidosControllers {
 	async store(req, res) {
@@ -28,12 +31,35 @@ class PedidosControllers {
 		}
 		const { userid, username } = req;
 		const { products } = req.body;
+		const idProducts = products.map((product) => product.id);
+		const fidProducts = await Product.findAll({
+			where: {
+				id: idProducts,
+			},
+			include: {
+				model: Category,
+				as: 'category',
+				attributes: ['name'],
+			},
+		});
+		const newProducts = fidProducts.map((product) => {
+			const newProduct = {
+				id: product.id,
+				category: product.category.name,
+				name: product.name,
+				price: product.price,
+				url: product.url,
+				
+
+			}
+			return newProduct
+		});
 		const order = {
 			user: {
 				id: userid,
 				name: username,
 			},
-			products,
+			products: newProducts,
 		};
 		return res.status(201).json(order);
 	}
