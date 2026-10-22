@@ -9,7 +9,7 @@ Padrão da arquitetura MVC:
 */
 
 import * as Yup from 'yup';
-import Category from '../models/category.js';
+import Category from '../models/Category.js';
 
 class Categories {
 	async store(req, res) {

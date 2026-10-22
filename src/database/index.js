@@ -12,8 +12,8 @@ Padrão da arquitetura / Database Layer:
 */
 import mongoose from 'mongoose';
 import { Sequelize } from 'sequelize';
-import { initCategory } from '../app/models/category.js';
-import { initProduct } from '../app/models/product.js';
+import { initCategory } from '../app/models/Category.js';
+import { initProduct } from '../app/models/Product.js';
 import { initUser } from '../app/models/User.js';
 
 import databaseConfig from '../config/database.cjs';
@@ -40,7 +40,9 @@ class Database {
 		});
 	}
 	mongo() {
-		this.mongooseConection = mongoose.connect('mongodb://localhost:27017/burguerapi');
+		this.mongooseConection = mongoose.connect(
+			'mongodb://localhost:27017/burguerapi',
+		);
 	}
 }
 

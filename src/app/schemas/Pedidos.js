@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-const Orderschema = new mongoose.Schema({
+const PedidosSchema = new mongoose.Schema({
 	user: {
 		id: {
 			type: String,
@@ -47,4 +47,4 @@ const Orderschema = new mongoose.Schema({
 	timestamps: true,
 });
 
-export default new mongoose.model('Order', Orderschema);
+export default new mongoose.model('Pedidos', PedidosSchema);

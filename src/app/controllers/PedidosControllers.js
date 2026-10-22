@@ -8,18 +8,35 @@ Padrão da arquitetura MVC:
 - index  = Lista todos os produtos cadastrados, incluindo a categoria de cada um
 =============================================================================
 */
+import * as Yup from 'yup';
 
-class OrderControllers {
+class PedidosControllers {
 	async store(req, res) {
+		const schema = Yup.object({
+			products: Yup.array().of(
+				Yup.object({
+					id: Yup.number().required(),
+					quantity: Yup.number().required(),
+				}),
+			),
+		});
+
+		try {
+			schema.validateSync(req.body, { abortEarly: false, strict: true });
+		} catch (error) {
+			return res.status(400).json({ error: error.errors });
+		}
 		const { userid, username } = req;
+		const { products } = req.body;
 		const order = {
 			user: {
 				id: userid,
 				name: username,
 			},
+			products,
 		};
 		return res.status(201).json(order);
 	}
 }
 
-export default new OrderControllers();
+export default new PedidosControllers();
