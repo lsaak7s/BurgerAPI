@@ -1,6 +1,6 @@
 /* 
 =============================================================================
-CONTROLLER DE CATEGORIAS (AddCategoryControllers.js)
+CONTROLLER DE CATEGORIAS (CategoryControllers.js)
 =============================================================================
 Padrão da arquitetura MVC:
 - store  = Cria uma nova categoria (valida se o nome já existe no banco)

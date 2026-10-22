@@ -1,11 +1,11 @@
 /* 
 =============================================================================
-CONTROLLER DE PRODUTOS (AddProdutsControllers.js)
+CONTROLLER DE PEDIDOS / PRODUTOS (PedidosControllers.js)
 =============================================================================
 Padrão da arquitetura MVC:
-- store  = Cria um novo produto (valida dados, imagem e salva no banco de dados)
-- update = Atualiza os dados de um produto existente através do ID (req.params)
-- index  = Lista todos os produtos cadastrados, incluindo a categoria de cada um
+- store  = Cria um novo pedido/produto (valida dados, imagem e salva no banco de dados)
+- update = Atualiza os dados de um registro existente através do ID (req.params)
+- index  = Lista todos os registros existentes
 =============================================================================
 */
 
@@ -29,39 +29,45 @@ class PedidosControllers {
 		} catch (error) {
 			return res.status(400).json({ error: error.errors });
 		}
-		const { userid, username } = req;
-		const { products } = req.body;
-		const idProducts = products.map((product) => product.id);
-		const fidProducts = await Product.findAll({
-			where: {
-				id: idProducts,
-			},
-			include: {
-				model: Category,
-				as: 'category',
-				attributes: ['name'],
-			},
-		});
-		const newProducts = fidProducts.map((product) => {
-			const newProduct = {
-				id: product.id,
-				category: product.category.name,
-				name: product.name,
-				price: product.price,
-				url: product.url,
-				
+		try {
+			const { userid, username } = req;
+			const { products } = req.body;
+			const idProducts = products.map((product) => product.id);
+			const fidProducts = await Product.findAll({
+				where: {
+					id: idProducts,
+				},
+				include: {
+					model: Category,
+					as: 'category',
+					attributes: ['name'],
+				},
+			});
 
-			}
-			return newProduct
-		});
-		const order = {
-			user: {
-				id: userid,
-				name: username,
-			},
-			products: newProducts,
-		};
-		return res.status(201).json(order);
+			const newProducts = fidProducts.map((product) => {
+				const quantity = products.find((p) => p.id === product.id).quantity || 0;
+				const newProduct = {
+					id: product.id,
+					category: product.category.name,
+					name: product.name,
+					price: product.price,
+					url: product.url,
+					quantity,
+				};
+				return newProduct;
+			});
+			const pedido = {
+				user: {
+					id: userid,
+					name: username,
+				},
+				products: newProducts,
+				status: 'Pedido feito chefe',
+			};
+			return res.status(201).json(pedido);
+		} catch (error) {
+			res.status(400).json({ error: error.message})
+		}
 	}
 }
 

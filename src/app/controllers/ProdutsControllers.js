@@ -1,6 +1,6 @@
 /* 
 =============================================================================
-CONTROLLER DE PRODUTOS (AddProdutsControllers.js)
+CONTROLLER DE PRODUTOS (ProdutsControllers.js)
 =============================================================================
 Padrão da arquitetura MVC:
 - store  = Cria um novo produto (valida dados, imagem e salva no banco de dados)
