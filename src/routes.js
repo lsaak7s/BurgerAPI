@@ -33,6 +33,8 @@ router.post('/Login', LoginControllers.store);
 router.use(authMidllewares);
 router.get('/listCategories', CategoryControllers.index);
 router.get('/listProducts', ProdutsControllers.index);
+router.post('/Pedidos', PedidosControllers.store);
+router.put('/Pedidos/:id', PedidosControllers.update);
 //Admin
 router.use(adminMidllewares);
 router.post('/Categories', uploads.single('file'), CategoryControllers.store);
@@ -43,6 +45,6 @@ router.put(
 );
 router.post('/Products', uploads.single('file'), ProdutsControllers.store);
 router.put('/Products/:id', uploads.single('file'), ProdutsControllers.update);
-router.post('/Pedidos', PedidosControllers.store);
+router.get('/Pedidos', PedidosControllers.index);
 
 export default router;

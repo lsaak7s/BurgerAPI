@@ -72,6 +72,30 @@ class PedidosControllers {
 			res.status(400).json({ error: error.message });
 		}
 	}
+	async update(req, res) {
+		const schema = Yup.object({
+			status: Yup.string().required(),
+		});
+
+		try {
+			schema.validateSync(req.body, { abortEarly: false, strict: true });
+		} catch (error) {
+			return res.status(400).json({ error: error.errors });
+		}
+		const { status } = req.body;
+		const { id } = req.params;
+
+		try {
+			await Pedidos.updateOne({ _id: id }, { status });
+		} catch (error) {
+			return res.status(400).json({ error: error.message });
+		}
+		return res.status(200).json({ message: 'status atualizado' });
+	}
+	async index(_req, res) {
+		const Pedido = Pedidos.find();
+		return res.status(200).json(Pedido);
+	}
 }
 
 export default new PedidosControllers();
