@@ -12,6 +12,7 @@ Padrão da arquitetura MVC:
 import * as Yup from 'yup';
 import Category from '../models/Category.js';
 import Product from '../models/Product.js';
+import Pedidos from '../schemas/Pedidos.js';
 
 class PedidosControllers {
 	async store(req, res) {
@@ -45,7 +46,8 @@ class PedidosControllers {
 			});
 
 			const newProducts = fidProducts.map((product) => {
-				const quantity = products.find((p) => p.id === product.id).quantity || 0;
+				const quantity =
+					products.find((p) => p.id === product.id).quantity || 0;
 				const newProduct = {
 					id: product.id,
 					category: product.category.name,
@@ -64,9 +66,10 @@ class PedidosControllers {
 				products: newProducts,
 				status: 'Pedido feito chefe',
 			};
-			return res.status(201).json(pedido);
+			const newPedido = await Pedidos.create(pedido);
+			return res.status(201).json(newPedido);
 		} catch (error) {
-			res.status(400).json({ error: error.message})
+			res.status(400).json({ error: error.message });
 		}
 	}
 }
