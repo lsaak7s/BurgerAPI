@@ -1,6 +1,8 @@
 import mongoose from 'mongoose';
 
-const PedidosSchema = new mongoose.Schema({
+const { Schema } = mongoose;
+
+const PedidosSchema = new Schema({
 	user: {
 		id: {
 			type: String,
@@ -42,9 +44,10 @@ const PedidosSchema = new mongoose.Schema({
 	status: {
 		type: String,
 		require: true,
+		timestamps: true,
 	},
 
-	timestamps: true,
+	
 });
 
 export default new mongoose.model('Pedidos', PedidosSchema);
