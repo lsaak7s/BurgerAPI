@@ -20,9 +20,10 @@ import LoginControllers from './app/controllers/LoginControllers.js';
 import PedidosControllers from './app/controllers/PedidosControllers.js';
 import ProdutsControllers from './app/controllers/ProdutsControllers.js';
 import UserControllers from './app/controllers/UserControllers.js';
+import adminMidllewares from './app/middlewares/admin.js';
+import authMidllewares from './app/middlewares/auth.js';
 import multerConfig from './config/multer.cjs';
-import adminMidllewares from './middlewares/admin.js';
-import authMidllewares from './middlewares/auth.js';
+
 
 const uploads = multer(multerConfig);
 const router = new Router();

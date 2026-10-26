@@ -13,7 +13,7 @@ Padrão da arquitetura / Middlewares:
 */
 
 import JWT from 'jsonwebtoken';
-import authConfig from '../config/auth.js';
+import authConfig from '../../config/auth.js';
 
 const authMidllewares = (req, res, next) => {
 	const authToken = req.headers.authorization;

@@ -93,9 +93,9 @@ class PedidosControllers {
 		return res.status(200).json({ message: 'status atualizado' });
 	}
 	async index(_req, res) {
-		const Pedido = Pedidos.find();
+		const Pedido = await Pedidos.find();
 		return res.status(200).json(Pedido);
 	}
 }
 
-export default new PedidosControllers();
+export default new PedidosControllers(); 
