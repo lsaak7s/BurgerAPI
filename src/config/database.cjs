@@ -15,7 +15,7 @@ module.exports = {
 	host: 'localhost',
 	port: 5432,
 	username: 'postgres',
-	password: 'LULUBLUR2',
+	password: 'postgres',
 	database: 'BurgerAPI-db',
 	define: {
 		timestamps: true,
