@@ -35,6 +35,9 @@ export function initUser(sequelize) {
 			tableName: 'users',
 			timestamps: true,
 			underscored: true,
+			// ADICIONE ESTAS DUAS LINHAS ABAIXO:
+			createdAt: 'created_at',
+			updatedAt: 'update_at', // <-- Força o Sequelize a usar o nome sem o 'd' que está na sua tabela
 		},
 	);
 

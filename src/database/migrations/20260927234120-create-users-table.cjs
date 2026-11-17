@@ -40,11 +40,11 @@ module.exports = {
 				type: BOOLEAN,
 				defaultValue: false,
 			},
-			created: {
+			created_at: {
 				type: Sequelize.DATE,
 				allowNull: false,
 			},
-			update: {
+			update_at: {
 				type: Sequelize.DATE,
 				allowNull: false,
 			},
