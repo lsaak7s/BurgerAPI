@@ -15,14 +15,11 @@ Padrão da arquitetura / Migrations do Sequelize:
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
-	async up(queryInterface) {
-		await queryInterface.removeColumn('products', 'category');
-	},
+	async up(_queryInterface) {
+    return Promise.resolve(); // Pula a execução desta migration
+  },
 
-	async down(queryInterface, Sequelize) {
-		await queryInterface.addColumn('products', 'category', {
-			type: Sequelize.STRING(),
-			allowNull: true,
-		});
-	},
+  async down(_queryInterface) {
+    return Promise.resolve();
+  }
 };
