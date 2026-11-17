@@ -35,8 +35,8 @@ export function initUser(sequelize) {
 			tableName: 'users',
 			timestamps: true,
 			underscored: true,
-			createdAt: 'created',
-			updatedAt: 'update',
+			createdAt: 'created_at',
+			updatedAt: 'updated_at',
 		},
 	);
 
