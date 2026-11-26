@@ -10,7 +10,7 @@ Padrão da arquitetura MVC:
 */
 
 import * as Yup from 'yup';
-import Category from '../models/Category.js';
+
 import Product from '../models/Product.js';
 
 class AddProdutsControllers {
