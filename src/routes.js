@@ -24,16 +24,16 @@ import adminMidllewares from './app/middlewares/admin.js';
 import authMidllewares from './app/middlewares/auth.js';
 import multerConfig from './config/multer.cjs';
 
-
 const uploads = multer(multerConfig);
 const router = new Router();
 //init
 router.post('/users', UserControllers.store);
 router.post('/Login', LoginControllers.store);
+//Home
+router.get('/listProducts', ProdutsControllers.index);
+router.get('/listCategories', CategoryControllers.index);
 //Users
 router.use(authMidllewares);
-router.get('/listCategories', CategoryControllers.index);
-router.get('/listProducts', ProdutsControllers.index);
 router.post('/Pedidos', PedidosControllers.store);
 router.put('/Pedidos/:id', PedidosControllers.update);
 //Admin
