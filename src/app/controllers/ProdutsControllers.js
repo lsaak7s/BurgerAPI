@@ -94,13 +94,7 @@ class AddProdutsControllers {
 	}
 
 	async index(_req, res) {
-		const products = await Product.findAll({
-			include: {
-				model: Category,
-				as: 'category',
-				attributes: ['id', 'name'],
-			},
-		});
+		const products = await Product.findAll();
 
 		return res.status(200).json(products);
 	}

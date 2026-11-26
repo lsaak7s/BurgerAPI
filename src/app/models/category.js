@@ -25,6 +25,7 @@ export function initCategory(sequelize) {
 			name: {
 				type: DataTypes.STRING,
 			},
+
 			path: {
 				type: DataTypes.STRING,
 			},
