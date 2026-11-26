@@ -10,7 +10,7 @@ Padrão da arquitetura MVC:
 */
 
 import * as Yup from 'yup';
-import Category from '../models/Category.js';
+
 import Product from '../models/Product.js';
 
 class AddProdutsControllers {
@@ -94,15 +94,14 @@ class AddProdutsControllers {
 	}
 
 	async index(_req, res) {
-		const products = await Product.findAll({
-			include: {
-				model: Category,
-				as: 'category',
-				attributes: ['id', 'name'],
-			},
-		});
+		try {
+			const products = await Product.findAll();
 
-		return res.status(200).json(products);
+			return res.status(200).json(products);
+		} catch (error) {
+			// Mostra a mensagem curta (ex: "email must be a valid email")
+			console.log('Mensagem:', error.message);
+		}
 	}
 }
 

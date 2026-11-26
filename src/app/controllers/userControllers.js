@@ -60,11 +60,14 @@ class Usercontrollers {
 				admin: user.admin,
 			});
 		} catch (error) {
+			// O console.error mostra o erro completo, incluindo o caminho do arquivo e a linha
+			console.error('❌ ERRO DETALHADO:');
 			console.error(error);
 
-			return res.status(400).json({
-				error: 'Dados inválidos.',
-			});
+			// Ou se quiser apenas o caminho da falha:
+			// console.log(error.stack);
+
+			return res.status(400).json({ error: error.errors });
 		}
 	}
 }
