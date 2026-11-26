@@ -93,9 +93,21 @@ class PedidosControllers {
 		return res.status(200).json({ message: 'status atualizado' });
 	}
 	async index(_req, res) {
-		const Pedido = await Pedidos.find();
-		return res.status(200).json(Pedido);
+		try {
+			const Pedido = await Pedidos.find();
+			return res.status(200).json(Pedido);
+		} catch (error) {
+			// 1. Isso mostra o erro de referência e o "mapa" (stack) no terminal
+			console.error('❌ OCORREU UM ERRO:');
+			console.error(error);
+
+			// 2. Isso envia a mensagem para o Insomnia
+			return res.status(500).json({
+				error: 'Erro no servidor',
+				detalhe: error.message,
+			});
+		}
 	}
 }
 
-export default new PedidosControllers(); 
+export default new PedidosControllers();

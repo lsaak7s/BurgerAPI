@@ -94,9 +94,14 @@ class AddProdutsControllers {
 	}
 
 	async index(_req, res) {
-		const products = await Product.findAll();
+		try {
+			const products = await Product.findAll();
 
-		return res.status(200).json(products);
+			return res.status(200).json(products);
+		} catch (error) {
+			// Mostra a mensagem curta (ex: "email must be a valid email")
+			console.log('Mensagem:', error.message);
+		}
 	}
 }
 
